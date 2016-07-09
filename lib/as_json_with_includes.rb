@@ -1,4 +1,5 @@
 require "as_json_with_includes/version"
+require 'active_record'
 
 module AsJsonWithIncludes
   module BasePatch
