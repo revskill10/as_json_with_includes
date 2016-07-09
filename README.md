@@ -1,5 +1,7 @@
 # AsJsonWithIncludes
 
+[![Build Status](https://travis-ci.org/checkraiser/as_json_with_includes.svg?branch=master)](https://travis-ci.org/checkraiser/as_json_with_includes)
+
 ## Problem:
 
 - We have complicated includes
