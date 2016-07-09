@@ -1,28 +1,31 @@
 # AsJsonWithIncludes
 
 ## Problem:
-1. we have complicated includes
+
+- We have complicated includes
 
 ```
 includes = [:a, :b, :c, :d, {:e => {:f => [:g, :g]}}]
 ```
 
-2. we can use it like this:
+- We can use it like this:
 
 ```
 model = model_1.submodels.includes(includes)
 ```
 
-3. the data is now in rails and we have to convert the data to json but we cannot do `render :json => submodels, :include => includes`
+- The data is now in rails and we have to convert the data to json but we cannot do `render :json => submodels, :include => includes`
 this is because the ":include =>" attribute expects a different format:
 
 ```
 [:a, :b, :c, :d, {:e => {:include => {:f => {:include => [:g, :h]}}}}]
 ```
 
-which we have to manually write
+which we have to manually write.
 
-## Solution: this gem takes active_record_includes of the form:
+## Solution: 
+
+This gem takes active_record_includes of the form:
 
 ```
 [:a, :b, :c, :d, {:e => {:f => [:g, :h]}}]
