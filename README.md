@@ -1,8 +1,38 @@
 # AsJsonWithIncludes
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/as_json_with_includes`. To experiment with that code, run `bin/console` for an interactive prompt.
+## Problem:
+1. we have complicated includes
 
-TODO: Delete this and the text above, and describe your gem
+```
+includes = [:a, :b, :c, :d, {:e => {:f => [:g, :g]}}]
+```
+
+2. we can use it like this:
+
+```
+model = model_1.submodels.includes(includes)
+```
+
+3. the data is now in rails and we have to convert the data to json but we cannot do `render :json => submodels, :include => includes`
+this is because the ":include =>" attribute expects a different format:
+
+```
+[:a, :b, :c, :d, {:e => {:include => {:f => {:include => [:g, :h]}}}}]
+```
+
+which we have to manually write
+
+## Solution: this gem takes active_record_includes of the form:
+
+```
+[:a, :b, :c, :d, {:e => {:f => [:g, :h]}}]
+```
+
+and returns:
+
+```
+[:a, :b, :c, :d, {:e => {:include => {:f => {:include => [:g, :h]}}}}]
+```
 
 ## Installation
 
@@ -22,7 +52,10 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+```
+includes = [:a, :b, {c: :d}]
+model = Model.where(...).as_json_with_includes(includes: includes)
+```
 
 ## Development
 
