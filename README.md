@@ -4,20 +4,20 @@
 
 - We have complicated includes
 
-```
+```ruby
 includes = [:a, :b, :c, :d, {:e => {:f => [:g, :g]}}]
 ```
 
 - We can use it like this:
 
-```
+```ruby
 model = model_1.submodels.includes(includes)
 ```
 
 - The data is now in rails and we have to convert the data to json but we cannot do `render :json => submodels, :include => includes`
 this is because the ":include =>" attribute expects a different format:
 
-```
+```ruby
 [:a, :b, :c, :d, {:e => {:include => {:f => {:include => [:g, :h]}}}}]
 ```
 
@@ -27,13 +27,13 @@ which we have to manually write.
 
 This gem takes active_record_includes of the form:
 
-```
+```ruby
 [:a, :b, :c, :d, {:e => {:f => [:g, :h]}}]
 ```
 
 and returns:
 
-```
+```ruby
 [:a, :b, :c, :d, {:e => {:include => {:f => {:include => [:g, :h]}}}}]
 ```
 
@@ -55,7 +55,7 @@ Or install it yourself as:
 
 ## Usage
 
-```
+```ruby
 includes = [:a, :b, {c: :d}]
 model = Model.where(...).as_json_with_includes(includes: includes)
 ```
