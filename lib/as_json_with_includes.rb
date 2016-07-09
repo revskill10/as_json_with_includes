@@ -1,13 +1,13 @@
 require "as_json_with_includes/version"
 
-module ActiveRecord
-  class Base
+module AsJsonWithIncludes
+  module BasePatch
     def as_json(options = {})
       super(options).merge(serializable_hash(options))
     end
   end
 
-  module Calculations
+  module CalculationsPatch
     def convert_activerecord_includes_to_json_includes(active_record_includes)
       return active_record_includes if active_record_includes.is_a? Symbol
       temp_arr = []
@@ -36,3 +36,6 @@ module ActiveRecord
     end
   end
 end
+
+ActiveRecord::Base.send(:include, AsJsonWithIncludes::BasePatch)
+ActiveRecord::Calculations.send(:include, AsJsonWithIncludes::CalculationsPatch)
